@@ -1,0 +1,28 @@
+model User{
+  id String @id @default(uuid())
+  username String
+  password String
+  createdAt DateTime @default(now())
+    comments Comment[]
+
+}
+
+
+model Movie{
+  id String @id @default(uuid())
+  title String
+  duration Int
+  releaseDate DateTime @default(now())
+  comments Comment[]
+}
+model Comment{
+  id String @id @default(uuid())
+  text String
+  movieid String
+  movie Movie @relation(fields: [movieid],references: [id])
+  userid String
+  user User @relation(fields: [userid],references: [id])
+
+  @@index([userid])
+  @@index([movieid])
+}
